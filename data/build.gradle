@@ -11,9 +11,13 @@ java {
 dependencies {
     implementation project(':core_data')
     implementation project(':domain')
-    implementation libs.retrofit
-    implementation libs.room
-    implementation libs.room.common
+
+    api libs.retrofit
+    api libs.retrofit.converter.gson
+
+    api libs.room
+    api libs.room.common
+    api libs.room.ktx
+
     implementation libs.coroutines.core
-    annotationProcessor libs.room.compiler
 }

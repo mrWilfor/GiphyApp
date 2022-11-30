@@ -7,7 +7,7 @@ import com.google.gson.JsonParseException
 import java.lang.reflect.Type
 
 
-private class GifInfoNetworkDeserializer : JsonDeserializer<GifInfoNetwork> {
+class GifInfoNetworkDeserializer : JsonDeserializer<GifInfoNetwork> {
     @Throws(JsonParseException::class)
     override fun deserialize(
         json: JsonElement,
