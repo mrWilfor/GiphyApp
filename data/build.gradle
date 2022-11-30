@@ -7,3 +7,13 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
+
+dependencies {
+    implementation project(':core_data')
+    implementation project(':domain')
+    implementation libs.retrofit
+    implementation libs.room
+    implementation libs.room.common
+    implementation libs.coroutines.core
+    annotationProcessor libs.room.compiler
+}
