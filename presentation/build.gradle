@@ -33,4 +33,14 @@ android {
 dependencies {
     implementation libs.bundles.androidx
     implementation libs.android.material
+    implementation libs.coroutines.core
+    implementation libs.coroutines.android
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.runtime
+    implementation libs.lifecycle.livedata
+    implementation libs.koin.core
+    implementation libs.koin.android
+
+
+    implementation project(':domain')
 }
