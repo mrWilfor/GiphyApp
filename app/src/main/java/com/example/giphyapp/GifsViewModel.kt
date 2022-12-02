@@ -1,4 +1,4 @@
-package com.example.presentation
+package com.example.giphyapp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
