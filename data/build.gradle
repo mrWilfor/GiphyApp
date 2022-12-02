@@ -1,23 +1,48 @@
 plugins {
-    id 'java-library'
-    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.android.library
+    alias libs.plugins.kotlin.android
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+android {
+    namespace 'com.example.data'
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 32
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation project(':core_data')
     implementation project(':domain')
 
-    api libs.retrofit
-    api libs.retrofit.converter.gson
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.gson
 
-    api libs.room
-    api libs.room.common
-    api libs.room.ktx
+    implementation libs.koin.core
+    implementation libs.koin.android
+    implementation libs.koin.android.compat
+
+    implementation libs.room
+    implementation libs.room.common
+    implementation libs.room.ktx
 
     implementation libs.coroutines.core
 }

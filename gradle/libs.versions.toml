@@ -5,6 +5,7 @@ room = "2.4.3"
 coroutines = "1.6.4"
 lifecycle = "2.4.0"
 koin-android-version = "3.3.0"
+navigation = "2.5.3"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version = "1.7.0" }
@@ -28,6 +29,9 @@ koin-core = { module = "io.insert-koin:koin-core", version = "3.2.2" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android-version" }
 koin-android-compat = { module = "io.insert-koin:koin-android-compat", version.ref = "koin-android-version" }
 
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+
 [bundles]
 androidx = [ "androidx-core", "androidx-appcompat" ]
 
@@ -36,3 +40,4 @@ android-application = { id = "com.android.application", version.ref = "android-g
 android-library = { id = "com.android.library", version.ref = "android-gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+androidx-navigation-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

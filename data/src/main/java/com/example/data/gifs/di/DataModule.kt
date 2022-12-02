@@ -7,6 +7,8 @@ import com.example.domain.GifInfoRepository
 import org.koin.dsl.module
 
 val dataModule = module {
+    includes(dbModule, networkModule)
+
     single { GifInfoLocalDataSource(get()) }
     single { GifInfoRemoteDataSource(get()) }
     single<GifInfoRepository> { GifInfoRepositoryImpl(get(), get()) }
