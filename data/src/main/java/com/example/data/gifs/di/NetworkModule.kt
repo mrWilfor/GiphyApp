@@ -21,7 +21,7 @@ val networkModule = module {
     single {
         Retrofit.Builder()
             .baseUrl("https://api.giphy.com/v1/gifs/")
-            .addConverterFactory(get())
+            .addConverterFactory(get<GsonConverterFactory>())
             .build()
     }
     single { get<Retrofit>().create(GifsApi::class.java) }

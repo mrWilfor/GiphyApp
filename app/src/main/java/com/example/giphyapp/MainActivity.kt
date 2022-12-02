@@ -3,8 +3,8 @@ package com.example.giphyapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.data.gifs.di.dataModule
-import com.example.data.gifs.di.dbModule
-import com.example.data.gifs.di.networkModule
+import com.example.domain.domainModule
+import com.example.giphyapp.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         startKoin {
             androidLogger()
-            androidContext(this@MainActivity)
-            modules(dataModule, domainModule)
+            androidContext(this@MainActivity.applicationContext)
+            modules(dataModule, domainModule, appModule)
         }
     }
 }

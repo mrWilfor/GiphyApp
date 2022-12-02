@@ -14,7 +14,7 @@ class GifsListFragment : Fragment() {
     private var _binding: FragmentGifsListBinding? = null
     private val binding get() = _binding!!
 
-    val gifsViewModel: GifsViewModel by viewModel()
+    private val gifsViewModel: GifsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +28,6 @@ class GifsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            gifsViewModel.gifsInfos
 //        findNavController().navigate(GifsListFragmentDirections.actionGifsListFragmentToGifFragment())
     }
 
