@@ -13,4 +13,4 @@ fun GifInfoNetwork.toDb(): GifInfoDb = GifInfoDb(
     previewUrl = previewUrl
 )
 
-fun GifInfoDb.toDomain(): GifInfoDomain = GifInfoDomain(gifId, url, previewUrl)
+fun GifInfoDb.toDomain(): GifInfoDomain = GifInfoDomain(gifId, title, url, previewUrl)

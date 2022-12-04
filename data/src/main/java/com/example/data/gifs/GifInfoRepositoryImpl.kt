@@ -15,9 +15,7 @@ class GifInfoRepositoryImpl(
     override val searchedGifsInfos: Flow<List<GifInfoDomain>> =
         gifInfoLocalDataSource.getGifsInfoFlow()
             .map { gifsInfos ->
-                gifsInfos
-                    .filter { it.title.contains(searchStr) }
-                    .map(GifInfoDb::toDomain)
+                gifsInfos.map(GifInfoDb::toDomain)
             }
 
 
