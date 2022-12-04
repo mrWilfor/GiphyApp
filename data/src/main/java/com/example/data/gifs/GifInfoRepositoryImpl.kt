@@ -11,20 +11,28 @@ class GifInfoRepositoryImpl(
     private val gifInfoRemoteDataSource: GifInfoRemoteDataSource,
     private val gifInfoLocalDataSource: GifInfoLocalDataSource
 ) : GifInfoRepository {
+    private var searchStr = ""
     override val searchedGifsInfos: Flow<List<GifInfoDomain>> =
-        gifInfoLocalDataSource.getGifsInfoFlow().map { it.map(GifInfoDb::toDomain) }
+        gifInfoLocalDataSource.getGifsInfoFlow()
+            .map { gifsInfos ->
+                gifsInfos
+                    .filter { it.title.contains(searchStr) }
+                    .map(GifInfoDb::toDomain)
+            }
 
 
-    override suspend fun searchGifs(searchStr: String) {
-        val searchGifsResponse = gifInfoRemoteDataSource.searchGifs(searchStr)
+    override suspend fun searchGifs(searchStr: String, offset: Int) {
+        this.searchStr = searchStr
 
-        if (searchGifsResponse.isSuccessful && searchGifsResponse.body()?.meta?.status == 200) {
-            val searchGifs = searchGifsResponse.body()
-                ?.data
-                ?.map(GifInfoNetwork::toDb)
-                ?: emptyList()
+        gifInfoRemoteDataSource.searchGifs(searchStr, offset)
+            .takeIf { searchGifsResponse -> searchGifsResponse.isSuccessful && searchGifsResponse.body()?.meta?.status == 200 }
+            .let { searchGifsResponse ->
+                val searchGifs = searchGifsResponse?.body()
+                    ?.data
+                    ?.map(GifInfoNetwork::toDb)
+                    ?: emptyList()
 
-            gifInfoLocalDataSource.saveGifsInfo(searchGifs)
-        }
+                gifInfoLocalDataSource.saveGifsInfo(searchGifs)
+            }
     }
 }

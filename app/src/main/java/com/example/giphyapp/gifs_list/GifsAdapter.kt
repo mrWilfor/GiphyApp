@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domain.GifInfoDomain
-import com.example.giphyapp.databinding.ItemListGifBinding
+import com.example.giphyapp.databinding.ItemGifBinding
 
 class GifsAdapter : ListAdapter<GifInfoDomain, GifsAdapter.GifViewHolder>(GifDiffCallBack()) {
 
     class GifViewHolder(
-        private val binding: ItemListGifBinding
+        private val binding: ItemGifBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(user: GifInfoDomain) {
@@ -22,7 +22,7 @@ class GifsAdapter : ListAdapter<GifInfoDomain, GifsAdapter.GifViewHolder>(GifDif
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
-        return GifViewHolder(ItemListGifBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return GifViewHolder(ItemGifBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {

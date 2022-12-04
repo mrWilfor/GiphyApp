@@ -8,7 +8,7 @@ import retrofit2.Response
 class GifInfoRemoteDataSource(
     private val gifsApi: GifsApi
 ) {
-    suspend fun searchGifs(searchStr: String): Response<NetworkResponse<GifInfoNetwork>> {
-        return gifsApi.searchGifs("ibOl4CbrqH8xxe8HrKIo0jOIXIVhzSVy", searchStr, 20, 0, "g", "en")
+    suspend fun searchGifs(searchStr: String, offset: Int): Response<NetworkResponse<GifInfoNetwork>> {
+        return gifsApi.searchGifs("ibOl4CbrqH8xxe8HrKIo0jOIXIVhzSVy", searchStr, 20, offset, "g", "en")
     }
 }
