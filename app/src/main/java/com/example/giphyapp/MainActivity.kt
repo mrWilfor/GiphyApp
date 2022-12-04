@@ -8,6 +8,7 @@ import com.example.giphyapp.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.context.stopKoin
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,5 +20,10 @@ class MainActivity : AppCompatActivity() {
             androidContext(this@MainActivity.applicationContext)
             modules(dataModule, domainModule, appModule)
         }
+    }
+
+    override fun onDestroy() {
+        stopKoin()
+        super.onDestroy()
     }
 }

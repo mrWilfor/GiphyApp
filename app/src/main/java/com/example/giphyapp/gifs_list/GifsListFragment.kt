@@ -14,7 +14,8 @@ class GifsListFragment : Fragment() {
     private var _binding: FragmentGifsListBinding? = null
     private val binding get() = _binding!!
 
-    private val gifsViewModel: GifsViewModel by viewModel()
+    private val viewModel: GifsViewModel by viewModel()
+    private val adapter by lazy { GifsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +29,13 @@ class GifsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recycler.adapter = adapter
+        viewModel.search("q")
+        viewModel.gifsInfos.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+
 //        findNavController().navigate(GifsListFragmentDirections.actionGifsListFragmentToGifFragment())
     }
 

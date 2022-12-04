@@ -18,7 +18,7 @@ class GifInfoNetworkDeserializer : JsonDeserializer<GifInfoNetwork> {
         val id = json.asJsonObject["id"].asString
         val title = json.asJsonObject["title"].asString
         val rating = json.asJsonObject["rating"].asString
-        val mp4 = json.asJsonObject["images"].asJsonObject["original"].asJsonObject["mp4"].asString
+        val mp4 = json.asJsonObject["images"].asJsonObject["original"].asJsonObject["url"].asString
         val url = json.asJsonObject["images"].asJsonObject["preview_gif"].asJsonObject["url"].asString
 
         return GifInfoNetwork(type, id, title, rating, mp4, url)

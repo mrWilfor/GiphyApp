@@ -8,6 +8,6 @@ interface GifInfoDao {
     @Query("SELECT * FROM GifInfoDb")
     fun getAll(): Flow<List<GifInfoDb>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(gifInfoList: List<GifInfoDb>)
 }

@@ -31,6 +31,7 @@ koin-android-compat = { module = "io.insert-koin:koin-android-compat", version.r
 
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+glide = { module = "com.github.bumptech.glide:glide", version = "4.14.2" }
 
 [bundles]
 androidx = [ "androidx-core", "androidx-appcompat" ]
