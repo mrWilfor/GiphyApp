@@ -12,7 +12,8 @@ class GetGifsInfosUseCase(
     operator fun invoke() = gifInfoRepository.searchedGifsInfos
         .map { gifInfoDomainList ->
             gifInfoDomainList.filter { gifInfoDomain ->
-                gifInfoDomain.title.contains(searchParamsRepository.searchString)
+                gifInfoDomain.searchRequest.contains(searchParamsRepository.searchString)
+                        && !gifInfoDomain.isDeleted
             }
         }
 }

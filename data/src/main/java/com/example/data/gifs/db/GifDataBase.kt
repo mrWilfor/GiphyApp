@@ -1,4 +1,4 @@
-package com.example.data.gifs
+package com.example.data.gifs.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

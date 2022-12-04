@@ -2,6 +2,7 @@ package com.example.giphyapp.gifs_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -9,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giphyapp.GifsViewModel
+import com.example.giphyapp.R
 import com.example.giphyapp.databinding.FragmentGifsListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class GifsListFragment : Fragment() {
 
@@ -18,7 +21,7 @@ class GifsListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: GifsViewModel by viewModel()
-    private val adapter by lazy { GifsAdapter() }
+    private val adapter by lazy { GifsAdapter(viewModel::saveGifLocally) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +54,8 @@ class GifsListFragment : Fragment() {
                     }
                 }
             }
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-            }
         })
+        registerForContextMenu(binding.recycler)
         binding.progressBar.isVisible = true
         viewModel.search("q")
         viewModel.gifsInfos.observe(viewLifecycleOwner) {
@@ -70,5 +70,19 @@ class GifsListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val gifInfoDomain = adapter.getClickedItem()
+
+        when (item.itemId) {
+            R.id.remove_item -> {
+                gifInfoDomain?.localUrl?.let {
+                    viewModel.deleteGifFromLocalCache(gifInfoDomain.gifId, it)
+                }
+            }
+        }
+
+        return super.onContextItemSelected(item)
     }
 }

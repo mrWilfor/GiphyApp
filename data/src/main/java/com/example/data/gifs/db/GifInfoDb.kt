@@ -17,6 +17,10 @@ data class GifInfoDb(
     val rating: String,
     @ColumnInfo(name = "url")
     val url: String,
-    @ColumnInfo(name = "preview_url")
-    val previewUrl: String,
+    @ColumnInfo(name = "local_url")
+    val localUrl: String? = null,
+    @ColumnInfo(name = "is_deleted")
+    val isDeleted: Boolean = false,
+    @ColumnInfo(name = "search_request")
+    val searchRequest: String
 )

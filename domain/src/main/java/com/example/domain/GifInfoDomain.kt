@@ -4,5 +4,7 @@ data class GifInfoDomain(
     val gifId: String,
     val title: String,
     val url: String,
-    val previewUrl: String,
+    val localUrl: String? = null,
+    val isDeleted: Boolean,
+    val searchRequest: String
 )

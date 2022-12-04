@@ -6,4 +6,6 @@ interface GifInfoRepository {
     val searchedGifsInfos: Flow<List<GifInfoDomain>>
 
     suspend fun searchGifs(searchStr: String, offset: Int)
+    suspend fun saveGifLocalUrl(gifId: String, bytes: ByteArray)
+    suspend fun deleteGifFromLocalCache(gifId: String, localFilePath: String)
 }

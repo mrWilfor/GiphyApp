@@ -1,7 +1,7 @@
 package com.example.data.gifs.di
 
 import androidx.room.Room
-import com.example.data.gifs.GifDataBase
+import com.example.data.gifs.db.GifDataBase
 import org.koin.dsl.module
 
 val dbModule = module {

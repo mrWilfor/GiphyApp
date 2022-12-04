@@ -5,5 +5,5 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModel { GifsViewModel(get(), get())}
+    viewModel { GifsViewModel(get(), get(), get(), get())}
 }
