@@ -58,7 +58,7 @@ dependencies {
 
     implementation libs.lifecycle.livedata
     implementation libs.glide
-
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation project(':data')
     implementation project(':domain')
 }

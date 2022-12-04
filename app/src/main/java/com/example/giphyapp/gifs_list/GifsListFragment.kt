@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.giphyapp.GifsViewModel
@@ -21,7 +23,11 @@ class GifsListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: GifsViewModel by viewModel()
-    private val adapter by lazy { GifsAdapter(viewModel::saveGifLocally) }
+    private val adapter by lazy {
+        GifsAdapter(viewModel::saveGifLocally,) {
+            findNavController().navigate(GifsListFragmentDirections.actionGifsListFragmentToGifFragment())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,36 +41,47 @@ class GifsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recycler.adapter = adapter
-        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
 
-                if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
-                    val layoutManager: LinearLayoutManager =
-                        recyclerView.layoutManager as LinearLayoutManager
-                    val visibleItemCount: Int = layoutManager.childCount
-                    val totalItemCount: Int = layoutManager.itemCount
-                    val pastVisibleItems: Int =
-                        layoutManager.findFirstCompletelyVisibleItemPosition()
+        with(binding) {
+            recycler.adapter = adapter
+            recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
 
-                    if (pastVisibleItems + visibleItemCount >= totalItemCount) {
-                        binding.progressBar.isVisible = true
-                        viewModel.search("q")
+                    if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val layoutManager: LinearLayoutManager =
+                            recyclerView.layoutManager as LinearLayoutManager
+                        val visibleItemCount: Int = layoutManager.childCount
+                        val totalItemCount: Int = layoutManager.itemCount
+                        val pastVisibleItems: Int =
+                            layoutManager.findFirstCompletelyVisibleItemPosition()
+
+                        if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                            progressBar.isVisible = true
+                            viewModel.search("q")
+                        }
                     }
                 }
+            })
+            registerForContextMenu(recycler)
+            search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    progressBar.isVisible = true
+                    viewModel.search(newText)
+
+                    return false
+                }
+            })
+            viewModel.gifsInfos.observe(viewLifecycleOwner) {
+                progressBar.isVisible = false
+                adapter.submitList(it)
             }
-        })
-        registerForContextMenu(binding.recycler)
-        binding.progressBar.isVisible = true
-        viewModel.search("q")
-        viewModel.gifsInfos.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = false
-            adapter.submitList(it)
+            viewModel.search("")
         }
-
-
-//        findNavController().navigate(GifsListFragmentDirections.actionGifsListFragmentToGifFragment())
     }
 
     override fun onDestroyView() {

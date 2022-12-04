@@ -8,7 +8,8 @@ import com.example.giphyapp.databinding.ItemGifBinding
 
 
 class GifsAdapter(
-    private val saveGifLocalUrl: (gifId: String, bytes: ByteArray) -> Unit
+    private val saveGifLocalUrl: (gifId: String, bytes: ByteArray) -> Unit,
+    private val onCLickItem: () -> Unit
 ) : ListAdapter<GifInfoDomain, GifViewHolder>(GifDiffCallBack()) {
     private var clickedItem: GifInfoDomain? = null
 
@@ -20,9 +21,11 @@ class GifsAdapter(
     }
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        holder.onBind(getItem(position)) {
-            this.clickedItem = it
-        }
+        holder.onBind(
+            getItem(position),
+            { this.clickedItem = it },
+            onCLickItem
+        )
     }
 
     fun getClickedItem(): GifInfoDomain? {

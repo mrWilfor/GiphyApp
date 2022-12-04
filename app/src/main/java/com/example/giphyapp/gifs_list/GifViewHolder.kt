@@ -23,7 +23,11 @@ class GifViewHolder(
     private val saveGifLocaly: (gifId: String, bytes: ByteArray) -> Unit
 ) : RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
 
-    fun onBind(gifInfo: GifInfoDomain, onLongClickListener: (gifInfo: GifInfoDomain) -> Unit) {
+    fun onBind(
+        gifInfo: GifInfoDomain,
+        onLongClickListener: (gifInfo: GifInfoDomain) -> Unit,
+        onCLickItem: () -> Unit
+    ) {
         val context = binding.root.context
         val builder = Glide.with(context).asGif()
 
@@ -61,6 +65,9 @@ class GifViewHolder(
         binding.gifIv.setOnLongClickListener {
             onLongClickListener(gifInfo)
             return@setOnLongClickListener false
+        }
+        binding.gifIv.setOnClickListener {
+            onCLickItem()
         }
     }
 
