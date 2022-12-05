@@ -24,8 +24,12 @@ class GifsListFragment : Fragment() {
 
     private val viewModel: GifsViewModel by viewModel()
     private val adapter by lazy {
-        GifsAdapter(viewModel::saveGifLocally,) {
-            findNavController().navigate(GifsListFragmentDirections.actionGifsListFragmentToGifFragment())
+        GifsAdapter(viewModel::saveGifLocally) { clickedItem ->
+            findNavController().navigate(
+                GifsListFragmentDirections.actionGifsListFragmentToGifFragment(
+                    (binding.recycler.adapter as GifsAdapter).currentList.indexOf(clickedItem)
+                )
+            )
         }
     }
 
@@ -80,7 +84,6 @@ class GifsListFragment : Fragment() {
                 progressBar.isVisible = false
                 adapter.submitList(it)
             }
-            viewModel.search("")
         }
     }
 

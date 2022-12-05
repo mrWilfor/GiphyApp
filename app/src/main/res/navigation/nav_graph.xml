@@ -7,14 +7,24 @@
     <fragment
         android:id="@+id/gifsListFragment"
         android:name="com.example.giphyapp.gifs_list.GifsListFragment"
-        android:label="GifsListFragment" >
+        android:label="GifsListFragment">
         <action
             android:id="@+id/action_gifsListFragment_to_gifFragment"
-            app:destination="@id/gifFragment" />
+            app:destination="@id/gifFragment">
+            <argument
+                android:name="selectedItem"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/gifFragment"
-        android:name="com.example.giphyapp.GifFragment"
-        android:label="GifFragment" />
+        android:name="com.example.giphyapp.gif.GifFragment"
+        android:label="GifFragment">
+        <argument
+            android:name="selectedItem"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 </navigation>

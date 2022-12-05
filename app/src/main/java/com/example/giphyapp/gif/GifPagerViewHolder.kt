@@ -1,9 +1,8 @@
-package com.example.giphyapp.gifs_list
+package com.example.giphyapp.gif
 
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.View
-import android.view.View.OnLongClickListener
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,18 +14,18 @@ import com.bumptech.glide.request.target.Target
 import com.example.domain.GifInfoDomain
 import com.example.giphyapp.R
 import com.example.giphyapp.databinding.ItemGifBinding
+import com.example.giphyapp.databinding.ItemPagerGifBinding
 import java.io.File
 import java.nio.ByteBuffer
 
-class GifViewHolder(
-    private val binding: ItemGifBinding,
+class GifPagerViewHolder(
+    private val binding: ItemPagerGifBinding,
     private val saveGifLocaly: (gifId: String, bytes: ByteArray) -> Unit
 ) : RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
 
     fun onBind(
         gifInfo: GifInfoDomain,
-        onLongClickListener: (gifInfo: GifInfoDomain) -> Unit,
-        onCLickItem: (gifInfo: GifInfoDomain) -> Unit
+        onLongClickListener: (gifInfo: GifInfoDomain) -> Unit
     ) {
         val context = binding.root.context
         val builder = Glide.with(context).asGif()
@@ -65,9 +64,6 @@ class GifViewHolder(
         binding.gifIv.setOnLongClickListener {
             onLongClickListener(gifInfo)
             return@setOnLongClickListener false
-        }
-        binding.gifIv.setOnClickListener {
-            onCLickItem(gifInfo)
         }
     }
 

@@ -12,7 +12,7 @@ class GetGifsInfosUseCase(
     operator fun invoke() = gifInfoRepository.searchedGifsInfos
         .map { gifInfoDomainList ->
             gifInfoDomainList.filter { gifInfoDomain ->
-                gifInfoDomain.searchRequest == searchParamsRepository.searchString
+                (gifInfoDomain.searchRequest == searchParamsRepository.searchString || searchParamsRepository.searchString.isEmpty())
                         && !gifInfoDomain.isDeleted
             }
         }

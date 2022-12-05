@@ -9,7 +9,7 @@ import com.example.giphyapp.databinding.ItemGifBinding
 
 class GifsAdapter(
     private val saveGifLocalUrl: (gifId: String, bytes: ByteArray) -> Unit,
-    private val onCLickItem: () -> Unit
+    private val onCLickItem: (selectedItem: GifInfoDomain) -> Unit
 ) : ListAdapter<GifInfoDomain, GifViewHolder>(GifDiffCallBack()) {
     private var clickedItem: GifInfoDomain? = null
 
