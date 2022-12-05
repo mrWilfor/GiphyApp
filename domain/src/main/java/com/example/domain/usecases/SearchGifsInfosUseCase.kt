@@ -17,7 +17,7 @@ class SearchGifsInfosUseCase(
                 resetOffset()
             }
 
-            gifInfoRepository.searchGifs(searchString, offset)
+            gifInfoRepository.searchGifs(searchString, offset, pageSize)
         }
     }
 }

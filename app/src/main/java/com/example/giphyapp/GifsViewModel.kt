@@ -5,17 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.GifInfoDomain
-import com.example.domain.usecases.DeleteGifFromLocalCacheUseCase
-import com.example.domain.usecases.GetGifsInfosUseCase
-import com.example.domain.usecases.SaveGifLocallyUseCase
-import com.example.domain.usecases.SearchGifsInfosUseCase
+import com.example.domain.usecases.*
 import kotlinx.coroutines.launch
 
 class GifsViewModel(
     private val getGifsInfosUseCase: GetGifsInfosUseCase,
     private val searchGifsInfosUseCase: SearchGifsInfosUseCase,
     private val saveGifLocallyUseCase: SaveGifLocallyUseCase,
-    private val deleteGifFromLocalCacheUseCase: DeleteGifFromLocalCacheUseCase
+    private val deleteGifFromLocalCacheUseCase: DeleteGifFromLocalCacheUseCase,
+    private val receiveNextPageUseCase: ReceiveNextPageUseCase
 ) : ViewModel() {
     val gifsInfos: LiveData<List<GifInfoDomain>> = getGifsInfosUseCase.invoke().asLiveData()
 
@@ -23,6 +21,12 @@ class GifsViewModel(
     fun search(searchStr: String) {
         viewModelScope.launch {
             searchGifsInfosUseCase.invoke(searchStr)
+        }
+    }
+
+    fun receiveNextPage() {
+        viewModelScope.launch {
+            receiveNextPageUseCase.invoke()
         }
     }
 

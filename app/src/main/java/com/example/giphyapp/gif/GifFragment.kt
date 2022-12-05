@@ -1,7 +1,6 @@
 package com.example.giphyapp.gif
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.giphyapp.GifsViewModel
 import com.example.giphyapp.databinding.FragmentGifBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class GifFragment : Fragment() {
     private var _binding: FragmentGifBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: GifsViewModel by viewModel()
+    private val viewModel: GifsViewModel by activityViewModel()
     private val adapter by lazy { GifPagerAdapter(viewModel::saveGifLocally) }
     private val args: GifFragmentArgs by navArgs()
 

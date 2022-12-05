@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.giphyapp.GifsViewModel
 import com.example.giphyapp.R
 import com.example.giphyapp.databinding.FragmentGifsListBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class GifsListFragment : Fragment() {
@@ -22,7 +22,7 @@ class GifsListFragment : Fragment() {
     private var _binding: FragmentGifsListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: GifsViewModel by viewModel()
+    private val viewModel: GifsViewModel by activityViewModel()
     private val adapter by lazy {
         GifsAdapter(viewModel::saveGifLocally) { clickedItem ->
             findNavController().navigate(
@@ -62,7 +62,7 @@ class GifsListFragment : Fragment() {
 
                         if (pastVisibleItems + visibleItemCount >= totalItemCount) {
                             progressBar.isVisible = true
-                            viewModel.search("q")
+                            viewModel.receiveNextPage()
                         }
                     }
                 }

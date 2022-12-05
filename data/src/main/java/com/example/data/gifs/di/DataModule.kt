@@ -9,7 +9,7 @@ val dataModule = module {
     includes(dbModule, networkModule)
 
     single { GifInfoLocalDataSource(get()) }
-    single { GifInfoRemoteDataSource(get()) }
+    single { GifInfoRemoteDataSource(get(), get()) }
     single<GifInfoRepository> { GifInfoRepositoryImpl(get(), get(), get()) }
     single<SearchParamsRepository> { SearchParamsRepositoryImpl() }
     single { LocalCacheManager(get()) }

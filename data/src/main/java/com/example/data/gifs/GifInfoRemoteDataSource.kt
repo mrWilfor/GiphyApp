@@ -6,9 +6,10 @@ import com.example.data.gifs.network.GifsApi
 import retrofit2.Response
 
 class GifInfoRemoteDataSource(
-    private val gifsApi: GifsApi
+    private val gifsApi: GifsApi,
+    private val apiKeyProvider: ApiKeyProvider
 ) {
-    suspend fun searchGifs(searchStr: String, offset: Int): Response<NetworkResponse<GifInfoNetwork>> {
-        return gifsApi.searchGifs("ibOl4CbrqH8xxe8HrKIo0jOIXIVhzSVy", searchStr, 20, offset, "g", "en")
+    suspend fun searchGifs(searchStr: String, offset: Int, pageSize: Int): Response<NetworkResponse<GifInfoNetwork>> {
+        return gifsApi.searchGifs(apiKeyProvider.apiKey, searchStr, pageSize, offset, "g", "en")
     }
 }

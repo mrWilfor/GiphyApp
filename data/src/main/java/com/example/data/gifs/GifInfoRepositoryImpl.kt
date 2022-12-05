@@ -1,7 +1,6 @@
 package com.example.data.gifs
 
 import com.example.data.gifs.db.GifInfoDb
-import com.example.data.gifs.network.GifInfoNetwork
 import com.example.domain.GifInfoDomain
 import com.example.domain.GifInfoRepository
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +20,12 @@ class GifInfoRepositoryImpl(
             }
 
 
-    override suspend fun searchGifs(searchStr: String, offset: Int) {
+    override suspend fun searchGifs(searchStr: String, offset: Int, pageSize: Int) {
         withContext(Dispatchers.IO) {
-            gifInfoRemoteDataSource.searchGifs(searchStr, offset)
+            gifInfoRemoteDataSource.searchGifs(searchStr, offset, pageSize)
                 .takeIf { searchGifsResponse -> searchGifsResponse.isSuccessful && searchGifsResponse.body()?.meta?.status == 200 }
-                .let { searchGifsResponse ->
-                    val searchGifs = searchGifsResponse?.body()?.data
+                ?.let { searchGifsResponse ->
+                    val searchGifs = searchGifsResponse.body()?.data
                         ?.map { it.toDb(searchStr) }
                         ?: emptyList()
 

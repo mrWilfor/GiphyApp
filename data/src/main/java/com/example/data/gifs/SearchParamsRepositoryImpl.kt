@@ -5,6 +5,7 @@ import com.example.domain.SearchParamsRepository
 class SearchParamsRepositoryImpl: SearchParamsRepository {
     override var searchString: String = DEFAULT_SEARCH_STRING
     override var offset: Int = DEFAULT_OFFSET
+    override val pageSize: Int = PAGE_SIZE
 
     override fun isSearchStringTheSame(searchStr: String) = this.searchString == searchStr
 
